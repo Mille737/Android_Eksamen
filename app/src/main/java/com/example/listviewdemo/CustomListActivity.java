@@ -46,8 +46,9 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
         Repo.r().setActivity(this);
     }
 
-    public void goToMap() {
-
+    public void goToMap(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
     public void galleryBtnPressed(View view){
