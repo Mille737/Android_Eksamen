@@ -14,14 +14,13 @@ import java.util.List;
 
 public class MyAdapter extends BaseAdapter {
 
-    private List<Note> data;
+    private final List<Note> data;
     //private int[] images;
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
-    public MyAdapter(Context context, List<Note> data, int[] images) {
+    public MyAdapter(Context context, List<Note> data) {
         this.data = data;
-        //this.images = images;
         // LayoutInflater og from er en statisk metode
         layoutInflater = LayoutInflater.from(context);
     }

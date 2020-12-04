@@ -20,13 +20,13 @@ import java.util.Map;
 
 public class Repo {
 
-    private static Repo repo = new Repo(); // Kan kun køre én gang
+    private static final Repo repo = new Repo(); // Kan kun køre én gang
     private Updatable activity;
-    private FirebaseFirestore fireDB = FirebaseFirestore.getInstance();
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final FirebaseFirestore fireDB = FirebaseFirestore.getInstance();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private static final String NOTES = "notes";
     private static final String TITLE = "title";
-    private List<Note> noteList = new ArrayList<>(); // Gemmer Note objekter. Kan opdateres
+    private final List<Note> noteList = new ArrayList<>(); // Gemmer Note objekter. Kan opdateres
 
     public static Repo r(){
         return repo;

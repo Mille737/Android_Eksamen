@@ -16,7 +16,7 @@ import android.widget.ListView;
 import com.example.listviewdemo.global.Global;
 import com.example.listviewdemo.model.Note;
 import com.example.listviewdemo.repo.Repo;
-
+import com.example.listviewdemo.MapsActivity;
 import java.io.InputStream;
 
 public class CustomListActivity extends AppCompatActivity implements Updatable{
@@ -29,12 +29,7 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_list);
 
-        myImageView10 = findViewById(R.id.myImageView10);
-
-        String[] countries = {"USA", "Denmark", "Norway", "Iceland"};
-        // vi skal have et array med billeder:
-        int[] pictures = {R.drawable.usa, R.drawable.denmark1, R.drawable.norway1, R.drawable.iceland1};
-        myAdapter = new MyAdapter(this, Repo.r().getNoteList(), pictures);
+        myAdapter = new MyAdapter(this, Repo.r().getNoteList());
         ListView listView = findViewById(R.id.myListView2);
 
         listView.setAdapter(myAdapter);
@@ -49,7 +44,9 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
         });
 
         Repo.r().setActivity(this);
-        Repo.r().downloadBitmap("coolcar2.jpg", this);
+    }
+
+    public void goToMap() {
 
     }
 
@@ -111,7 +108,7 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
             if(o != null) {
                 Bitmap bitmap = (Bitmap)o; // fungerer denne casting
                 if(bitmap != null) {
-                    myImageView10.setImageBitmap(bitmap);
+//                    myImageView10.setImageBitmap(bitmap);
                 }
             }
         });
