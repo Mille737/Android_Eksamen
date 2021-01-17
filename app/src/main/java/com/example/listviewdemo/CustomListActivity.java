@@ -95,11 +95,6 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
         }
     }
 
-    public void cameraBtnPressed(View view){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 2);
-    }
-
     @Override
     public void update(Object o) {
         System.out.println("Update() kaldet!!!");
