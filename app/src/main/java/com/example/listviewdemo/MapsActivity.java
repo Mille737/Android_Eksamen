@@ -70,10 +70,63 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         googleMap.addMarker(markerOptions);
+
         googleMap.setOnMapClickListener(point -> {
-            MarkerOptions marker = new MarkerOptions().position(new LatLng(point.latitude, point.longitude)).title("New Marker").visible(true);
-            googleMap.addMarker(marker);
+            MarkerOptions newMarker = new MarkerOptions().position(new LatLng(point.latitude, point.longitude)).title("New Marker").visible(true);
+            googleMap.addMarker(newMarker);
             System.out.println(point.latitude+"---"+ point.longitude);
+        });
+        
+        LatLng pizza1 = new LatLng(55.69108,12.5300476);
+        LatLng pizza2 = new LatLng(55.7049511,12.5332827);
+        LatLng pizza3 = new LatLng(55.687996,12.5627984);
+        googleMap.addMarker(new MarkerOptions()
+                .position(pizza1)
+                .title("Da Cavelino")
+                .snippet("Lækker pizza")
+        );
+        googleMap.addMarker(new MarkerOptions()
+                .position(pizza2)
+                .title("Tribeca")
+                .snippet("Lækker pizza og Øl")
+        );
+        googleMap.addMarker(new MarkerOptions()
+                .position(pizza3)
+                .title("Frankies")
+                .snippet("Super lækker pizza")
+        );
+
+        googleMap.setOnMarkerClickListener(marker -> {
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            String url;
+
+            if (marker.getPosition().equals(pizza1)){
+
+                System.out.println("TEST123");
+                url = "https://www.dacavallino.dk/en/";
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
+            }
+            else if (marker.getPosition().equals(pizza2)){
+
+                System.out.println("TEST PIZZA2");
+                url = "https://www.tribecanv.dk";
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
+            }
+            else if (marker.getPosition().equals(pizza3)){
+
+                System.out.println("Pizza3");
+                url = "https://frankiespizza.dk";
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
+            }
+
+            return true;
         });
     }
     @Override
