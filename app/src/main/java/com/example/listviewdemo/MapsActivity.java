@@ -1,24 +1,16 @@
 package com.example.listviewdemo;
-import androidx.core.app.ActivityCompat;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.listviewdemo.handler.MapHandler;
-import com.example.listviewdemo.handler.MyLocationListener;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,11 +18,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -65,14 +56,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle));
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(latLng)
+                .title("I am here!")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                .alpha(0.9f);
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         googleMap.addMarker(markerOptions);
-
         googleMap.setOnMapClickListener(point -> {
-            MarkerOptions newMarker = new MarkerOptions().position(new LatLng(point.latitude, point.longitude)).title("New Marker").visible(true);
+            MarkerOptions newMarker = new MarkerOptions()
+                    .position(new LatLng(point.latitude, point.longitude))
+                    .title("New Marker")
+                    .visible(true)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                    .alpha(0.9f);
+
             googleMap.addMarker(newMarker);
             System.out.println(point.latitude+"---"+ point.longitude);
         });
@@ -84,16 +85,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .position(pizza1)
                 .title("Da Cavelino")
                 .snippet("Lækker pizza")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                .alpha(0.9f)
         );
         googleMap.addMarker(new MarkerOptions()
                 .position(pizza2)
                 .title("Tribeca")
                 .snippet("Lækker pizza og Øl")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                .alpha(0.9f)
         );
         googleMap.addMarker(new MarkerOptions()
                 .position(pizza3)
                 .title("Frankies")
                 .snippet("Super lækker pizza")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                .alpha(0.9f)
         );
 
         googleMap.setOnMarkerClickListener(marker -> {

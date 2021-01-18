@@ -80,6 +80,7 @@ public class DetailActivity extends AppCompatActivity /*implements Updatable*/ {
             System.out.println("failed to upload billedet" + exception);
         });
         System.out.println("mums");
+        finish();
     }
 
 
