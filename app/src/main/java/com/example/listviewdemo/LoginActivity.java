@@ -6,15 +6,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.Toolbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
+
 
 public class LoginActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
     EditText userEmail;
     EditText userPassword;
     ProgressBar progressBar;
@@ -33,19 +30,17 @@ public class LoginActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.UserPassword);
         userLogin =  findViewById(R.id.BtnUserLogin);
 
-
         mAuth = FirebaseAuth.getInstance();
         userLogin.setOnClickListener(v -> mAuth.signInWithEmailAndPassword(userEmail.getText().toString(),
                 userPassword.getText().toString())
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
+                    if(task.isSuccessful()) {
                         startActivity(new Intent(this, CustomListActivity.class));
-                    }else{
+                    } else {
                         Toast.makeText(LoginActivity.this,
                                 task.getException().getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
-
                 }));
     }
 }

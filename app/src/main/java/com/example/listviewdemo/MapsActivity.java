@@ -7,11 +7,9 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,6 +27,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .visible(true)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                     .alpha(0.9f);
-
             googleMap.addMarker(newMarker);
-
-            System.out.println(point.latitude+"---"+ point.longitude);
         });
         
         LatLng pizza1 = new LatLng(55.69108,12.5300476);
@@ -145,5 +141,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
-
 }

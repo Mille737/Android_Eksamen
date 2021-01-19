@@ -5,17 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.listviewdemo.model.Note;
-
 import java.util.List;
 
 public class MyAdapter extends BaseAdapter {
 
     private final List<Note> data;
-    //private int[] images;
 
     private final LayoutInflater layoutInflater;
 
@@ -47,8 +43,6 @@ public class MyAdapter extends BaseAdapter {
         }
         TextView textView = view.findViewById(R.id.mytextView);
         textView.setText(data.get(i).getTitle());
-        //ImageView imageView = view.findViewById(R.id.myImageView);
-        //imageView.setImageResource(images[i]);
         return view;
     }
 }

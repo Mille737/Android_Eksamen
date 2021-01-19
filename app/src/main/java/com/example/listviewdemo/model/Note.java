@@ -13,17 +13,12 @@ public class Note {
             id = _id;
         }
     }
-
     public Note(String title) { // brug denne når vi opretter ny Note fra Android
         this.title = title;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getId() {

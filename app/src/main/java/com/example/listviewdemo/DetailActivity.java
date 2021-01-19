@@ -24,14 +24,13 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 
-public class DetailActivity extends AppCompatActivity /*implements Updatable*/ {
+public class DetailActivity extends AppCompatActivity {
 
     private Note currentNote;
-    //private MyAdapter myAdapter;
-    Bitmap currentBitmap;
     ImageView imv;
     StorageReference storageReference;
     FirebaseStorage storage;
+    Bitmap imageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +46,15 @@ public class DetailActivity extends AppCompatActivity /*implements Updatable*/ {
         imv = findViewById(R.id.image2);
 
         //formatering
-        storageReference.getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                imageBitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                //sætter billedet i viewet
-                imv.setImageBitmap(imageBitmap);
-            }
+        storageReference.getBytes(1024 * 1024).addOnSuccessListener(bytes -> {
+            imageBitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+            //sætter billedet i viewet
+            imv.setImageBitmap(imageBitmap);
         });
-
     }
 
 
-    public void addUpdatedNote(View view){
+    public void addUpdatedNote(View view) {
         TextView myDetailTextView = findViewById(R.id.myDetailTextView);
         EditText newDetailText = findViewById(R.id.newText);
         currentNote = (Note) Global.map.get(Global.NOTE_KEY);
@@ -79,11 +74,8 @@ public class DetailActivity extends AppCompatActivity /*implements Updatable*/ {
         }).addOnFailureListener(exception -> {
             System.out.println("failed to upload billedet" + exception);
         });
-        System.out.println("mums");
         finish();
     }
-
-
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -92,11 +84,9 @@ public class DetailActivity extends AppCompatActivity /*implements Updatable*/ {
         try {
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
         } catch (ActivityNotFoundException e) {
-            // display error state to the user
+            e.printStackTrace();
         }
     }
-
-    Bitmap imageBitmap;
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

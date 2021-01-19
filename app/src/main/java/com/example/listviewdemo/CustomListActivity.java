@@ -71,17 +71,15 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
         }
     }
 
-    private Bitmap currentBitmap;
-
     private void backFromGallery(@Nullable Intent data) {
         Uri uri = data.getData();
         try {
             InputStream is = getContentResolver().openInputStream(uri);
-            currentBitmap = BitmapFactory.decodeStream(is);
+            Bitmap currentBitmap = BitmapFactory.decodeStream(is);
             myImageView10.setImageBitmap(currentBitmap);
 
-        }catch (Exception e){
-
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -90,8 +88,8 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
             Bitmap currentBitmap = (Bitmap)data.getExtras().get("data");
             myImageView10.setImageBitmap(currentBitmap);
             // skaf en id til dit billede. F.eks. id fra noten
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -99,26 +97,11 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
     public void update(Object o) {
         System.out.println("Update() kaldet!!!");
         // kald på adapters notidyDatasetChange()
-        runOnUiThread(() -> {
-            myAdapter.notifyDataSetChanged();
-            if(o != null) {
-                Bitmap bitmap = (Bitmap)o; // fungerer denne casting
-                if(bitmap != null) {
-//                    myImageView10.setImageBitmap(bitmap);
-                }
-            }
-        });
+        runOnUiThread(() -> myAdapter.notifyDataSetChanged());
     }
 
     public void addNote(View view){
-        Note note = new Note("Skriv nu");
+        Note note = new Note("Ny note");
         Repo.r().addNote(note); // Opretter ny Nye + gemmer i Firebase
     }
-
-    public void uploadImage(View view) {
-        Note note = new Note("My friday note: Chill!");
-        Repo.r().uploadBitmap(note, currentBitmap);
-    }
-
-
 }
