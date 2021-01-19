@@ -112,4 +112,9 @@ public class DetailActivity extends AppCompatActivity /*implements Updatable*/ {
        }
    }
 
+    public void goToMap(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
 }
