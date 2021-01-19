@@ -24,7 +24,7 @@ public class Repo {
         return repo;
     }
 
-    public void setActivity(Updatable a){  // kaldes fra aktivitet, som skal blive opdateret
+    public void setActivity(Updatable a) {  // kaldes fra aktivitet, som skal blive opdateret
         activity = a;
         startListener();
     }
@@ -44,8 +44,7 @@ public class Repo {
         fireDB.collection(NOTES).addSnapshotListener((values, error) -> { // Values indeholder ALLE ting fra firebase så du kan kalde de forskellige til som .getDocuments
             noteList.clear();
 
-            for(DocumentSnapshot snap : values.getDocuments()){
-                System.out.println("Test1");
+            for(DocumentSnapshot snap : values.getDocuments()) {
                 Note note = new Note(snap.get(TITLE).toString(), snap.getId());
                 noteList.add(note);
             }
