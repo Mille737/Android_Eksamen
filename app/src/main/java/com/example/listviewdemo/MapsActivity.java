@@ -75,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .alpha(0.9f);
 
             googleMap.addMarker(newMarker);
+
             System.out.println(point.latitude+"---"+ point.longitude);
         });
         
