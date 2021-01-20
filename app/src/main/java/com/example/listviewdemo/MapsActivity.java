@@ -105,23 +105,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Intent i = new Intent(Intent.ACTION_VIEW);
             String url;
 
-            if (marker.getPosition().equals(pizza1)){
+            if (marker.getPosition().equals(pizza1)) {
 
                 System.out.println("TEST123");
                 url = "https://www.dacavallino.dk/en/";
                 i.setData(Uri.parse(url));
                 startActivity(i);
 
-            }
-            else if (marker.getPosition().equals(pizza2)){
+            } else if (marker.getPosition().equals(pizza2)) {
 
                 System.out.println("TEST PIZZA2");
                 url = "https://www.tribecanv.dk";
                 i.setData(Uri.parse(url));
                 startActivity(i);
 
-            }
-            else if (marker.getPosition().equals(pizza3)){
+            } else if (marker.getPosition().equals(pizza3)) {
 
                 System.out.println("Pizza3");
                 url = "https://frankiespizza.dk";
@@ -129,16 +127,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(i);
 
             }
-
             return true;
         });
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                fetchLocation();
-            }
-        }
     }
 }

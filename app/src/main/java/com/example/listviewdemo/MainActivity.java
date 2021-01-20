@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class  MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    Toolbar toolbar;
     ProgressBar progressBar;
     EditText email;
     EditText password;
@@ -35,30 +33,23 @@ public class  MainActivity extends AppCompatActivity {
         signUp = findViewById(R.id.btnSignUp);
         login = findViewById(R.id.btnLogin);
 
-        //toolbar.setTitle(R.string.app_name);
-
         signUp.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
             mAuth.createUserWithEmailAndPassword(email.getText().toString(),
                     password.getText().toString())
                     .addOnCompleteListener(task -> {
                         progressBar.setVisibility(View.GONE );
-                        if(task.isSuccessful()){
+                        if(task.isSuccessful()) {
                             Toast.makeText(MainActivity.this, "Registered Successfully",
                                     Toast.LENGTH_LONG).show();
                             email.setText("");
                             password.setText("");
-                        }else {
+                        } else {
                             Toast.makeText(MainActivity.this, task.getException().getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-
         });
-
         login.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));
-
-
-
     }
 }

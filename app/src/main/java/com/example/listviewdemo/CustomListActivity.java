@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -16,7 +15,6 @@ import android.widget.ListView;
 import com.example.listviewdemo.global.Global;
 import com.example.listviewdemo.model.Note;
 import com.example.listviewdemo.repo.Repo;
-import com.example.listviewdemo.MapsActivity;
 import java.io.InputStream;
 
 public class CustomListActivity extends AppCompatActivity implements Updatable{
@@ -46,23 +44,36 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
         Repo.r().setActivity(this);
     }
 
+    public void addNote(View view){
+        Note note = new Note("Ny note");
+        Repo.r().addNote(note); // Opretter ny Nye + gemmer i Firebase
+    }
+
     public void goToMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 
-    public void galleryBtnPressed(View view){
-        Intent intent = new Intent(Intent.ACTION_PICK); // make an implicit intent, which will allow
-        // the user to choose among different services to accomplish this task.
-        intent.setType("image/*"); // we need to set the type of content to pick
-        startActivityForResult(intent, 1); // start the activity, and in this case
-        // expect an answer
+    private void backFromCamera(@Nullable Intent data) {
+        try {
+            Bitmap currentBitmap = (Bitmap)data.getExtras().get("data");
+            myImageView10.setImageBitmap(currentBitmap);
+            // skaf en id til dit billede. F.eks. id fra noten
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Object o) {
+        System.out.println("Update() kaldet!!!");
+        // kald på adapters notidyDatasetChange()
+        runOnUiThread(() -> myAdapter.notifyDataSetChanged());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("back from image picking ");
         if(requestCode == 1) { // gallery
             backFromGallery(data);
         }
@@ -83,25 +94,11 @@ public class CustomListActivity extends AppCompatActivity implements Updatable{
         }
     }
 
-    private void backFromCamera(@Nullable Intent data) {
-        try {
-            Bitmap currentBitmap = (Bitmap)data.getExtras().get("data");
-            myImageView10.setImageBitmap(currentBitmap);
-            // skaf en id til dit billede. F.eks. id fra noten
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void update(Object o) {
-        System.out.println("Update() kaldet!!!");
-        // kald på adapters notidyDatasetChange()
-        runOnUiThread(() -> myAdapter.notifyDataSetChanged());
-    }
-
-    public void addNote(View view){
-        Note note = new Note("Ny note");
-        Repo.r().addNote(note); // Opretter ny Nye + gemmer i Firebase
+    public void galleryBtnPressed(View view){
+        Intent intent = new Intent(Intent.ACTION_PICK); // make an implicit intent, which will allow
+        // the user to choose among different services to accomplish this task.
+        intent.setType("image/*"); // we need to set the type of content to pick
+        startActivityForResult(intent, 1); // start the activity, and in this case
+        // expect an answer
     }
 }

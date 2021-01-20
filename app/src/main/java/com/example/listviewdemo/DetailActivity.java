@@ -45,7 +45,6 @@ public class DetailActivity extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference(currentNote.getId());
         imv = findViewById(R.id.image2);
 
-        //formatering
         storageReference.getBytes(1024 * 1024).addOnSuccessListener(bytes -> {
             imageBitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
             //sætter billedet i viewet
@@ -66,7 +65,6 @@ public class DetailActivity extends AppCompatActivity {
        //uploader til firestorage
         storage  = FirebaseStorage.getInstance();
         storageReference = storage.getReference().child(currentNote.getId());
-        //formatere
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         storageReference.putBytes(baos.toByteArray()).addOnCompleteListener(snap -> {
@@ -75,17 +73,6 @@ public class DetailActivity extends AppCompatActivity {
             System.out.println("failed to upload billedet" + exception);
         });
         finish();
-    }
-
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    public void galleryBtnPressed(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        try {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
    @Override
@@ -107,4 +94,14 @@ public class DetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    public void cameraBtnPressed(View view) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
